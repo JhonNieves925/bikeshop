@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -i \"s|/cliente/pedidos|/clientes/pedidos|g\" \"C:/Users/jhon_/OneDrive/Escritorio/bikeshop/bikeshop-frontend/src/views/cliente/MisPedidosView.vue\")",
+      "Bash(sed -i \"s|/cliente/mantenimientos|/clientes/mantenimientos|g\" \"C:/Users/jhon_/OneDrive/Escritorio/bikeshop/bikeshop-frontend/src/views/cliente/MisMantenimientosView.vue\")",
+      "Bash(mvn clean *)",
+      "Bash(./mvnw clean *)",
+      "Read(//c/Users/jhon_/OneDrive/Escritorio/bikeshop/bikeshop-frontend/**)",
+      "Bash(npx vite *)",
+      "Bash(./mvnw spring-boot:run)",
+      "Bash(node generate-icons.mjs)",
+      "Bash(del \"C:\\\\Users\\\\jhon_\\\\OneDrive\\\\Escritorio\\\\bikeshop\\\\bikeshop-backend\\\\src\\\\main\\\\java\\\\com\\\\bikeshop\\\\controller\\\\SetupController.java\")",
+      "Bash(xargs grep *)"
+    ]
+  }
+}

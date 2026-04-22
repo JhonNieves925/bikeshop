@@ -1,0 +1,25 @@
+# ── BACKEND ───────────────────────────────────────────────────────
+bikeshop-backend/target/
+bikeshop-backend/uploads/
+bikeshop-backend/src/main/resources/application-local.properties
+bikeshop-backend/src/main/resources/application-*.properties
+!bikeshop-backend/src/main/resources/application.properties
+!bikeshop-backend/src/main/resources/application-prod.properties
+
+# ── FRONTEND ──────────────────────────────────────────────────────
+bikeshop-frontend/node_modules/
+bikeshop-frontend/dist/
+bikeshop-frontend/dist-ssr/
+bikeshop-frontend/dev-dist/
+bikeshop-frontend/*.local
+
+# ── BASE DE DATOS ────────────────────────────────────────────────
+*.sql
+
+# ── GENERAL ──────────────────────────────────────────────────────
+.DS_Store
+*.log
+.idea/
+.vscode/
+*.suo
+*.iml
