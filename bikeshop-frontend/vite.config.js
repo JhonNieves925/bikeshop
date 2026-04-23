@@ -43,14 +43,7 @@ export default defineConfig({
             name: 'Tienda',
             short_name: 'Tienda',
             description: 'Ir a la tienda principal',
-            url: '/',
-            icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }]
-          },
-          {
-            name: 'Acceso Staff',
-            short_name: 'Staff',
-            description: 'Login para administradores y empleados',
-            url: '/staff/login',
+            url: '/tienda/',
             icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }]
           }
         ]

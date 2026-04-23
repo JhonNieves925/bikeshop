@@ -1,0 +1,39 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/tienda/",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/tienda/assets/:path*",
+      "destination": "/assets/:path*"
+    },
+    {
+      "source": "/tienda/icons/:path*",
+      "destination": "/icons/:path*"
+    },
+    {
+      "source": "/tienda/favicon.svg",
+      "destination": "/favicon.svg"
+    },
+    {
+      "source": "/tienda/manifest.webmanifest",
+      "destination": "/manifest.webmanifest"
+    },
+    {
+      "source": "/tienda/registerSW.js",
+      "destination": "/registerSW.js"
+    },
+    {
+      "source": "/tienda/sw.js",
+      "destination": "/sw.js"
+    },
+    {
+      "source": "/tienda/:path*",
+      "destination": "/"
+    }
+  ]
+}
