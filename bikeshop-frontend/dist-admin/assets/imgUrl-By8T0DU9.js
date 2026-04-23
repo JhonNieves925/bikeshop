@@ -1,0 +1,1 @@
+var e=`http://localhost:8080`;function t(t){return t?t.startsWith(`http`)?t:e+(t.startsWith(`/`)?t:`/`+t):null}export{t};

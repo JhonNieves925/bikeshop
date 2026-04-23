@@ -1,0 +1,1 @@
+function e(e){let t=e^e<<13;return t^=t>>>7,t^=t<<5,Math.abs(t)/2147483647}function t(t){return(4+e(t*7+3)*1).toFixed(1)}function n(t){return Math.floor(8+e(t*13+17)*120)}function r(e){let t=parseFloat(e);return[1,2,3,4,5].map(e=>t>=e?`full`:t>=e-.5?`half`:`empty`)}export{n,r,t};

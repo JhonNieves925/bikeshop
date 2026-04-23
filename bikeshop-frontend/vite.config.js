@@ -5,6 +5,7 @@ import { VitePWA } from 'vite-plugin-pwa'
 import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
+  base: '/tienda/',
   plugins: [
     vue(),
     tailwindcss(),
@@ -19,8 +20,8 @@ export default defineConfig({
         background_color: '#0a0a0a',
         display: 'standalone',
         orientation: 'portrait-primary',
-        start_url: '/',
-        scope: '/',
+        start_url: '/tienda/',
+        scope: '/tienda/',
         lang: 'es',
         categories: ['shopping', 'sports'],
         icons: [

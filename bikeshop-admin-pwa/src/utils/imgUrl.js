@@ -1,6 +1,6 @@
 /**
- * Construye la URL de una imagen del backend.
- * Usa rutas relativas para que funcione en cualquier entorno (local, ngrok, producción).
+ * Construye la URL completa de una imagen del backend.
+ * En desarrollo usa localhost:8080, en producción las rutas son relativas.
  */
 export function imgUrl(path) {
   if (!path) return null

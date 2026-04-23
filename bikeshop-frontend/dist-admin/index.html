@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/panel/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BikeShop</title>
+    <style>
+      /* ── SPLASH ─────────────────────────────────────────── */
+      #splash {
+        position: fixed;
+        inset: 0;
+        background: #0a0a0a;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+      }
+      #splash.hide {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      /* Bicicleta completa sube y baja */
+      .splash-bike {
+        width: 240px;
+        filter: drop-shadow(0 8px 24px rgba(227,24,55,0.25));
+        animation: bike-ride 0.55s ease-in-out infinite alternate;
+      }
+      @keyframes bike-ride {
+        from { transform: translateY(0px) rotate(-0.5deg); }
+        to   { transform: translateY(-7px) rotate(0.5deg); }
+      }
+
+      /* Ruedas girando */
+      .w-rear  { transform-origin: 52px 88px;  animation: spin 0.65s linear infinite; }
+      .w-front { transform-origin: 208px 88px; animation: spin 0.65s linear infinite; }
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Piernas pedaleando */
+      .legs { transform-origin: 114px 88px; animation: pedal 0.65s linear infinite; }
+      @keyframes pedal {
+        0%   { transform: rotate(0deg);   }
+        100% { transform: rotate(360deg); }
+      }
+
+      /* Texto */
+      .splash-brand {
+        margin-top: 22px;
+        display: flex;
+        align-items: baseline;
+        gap: 0;
+        font-family: 'Arial Black', 'Arial Bold', Arial, sans-serif;
+        font-size: 15px;
+        letter-spacing: 0.15em;
+        font-weight: 900;
+      }
+      .splash-brand .red  { color: #E31837; }
+      .splash-brand .wht  { color: #ffffff; }
+
+      .splash-sub {
+        margin-top: 4px;
+        color: #E31837;
+        font-family: Arial, sans-serif;
+        font-size: 10px;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        opacity: 0.7;
+      }
+
+      /* Barra de progreso */
+      .splash-bar {
+        margin-top: 20px;
+        width: 200px;
+        height: 2px;
+        background: #1e1e1e;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .splash-bar-fill {
+        height: 100%;
+        background: linear-gradient(90deg, transparent, #E31837, transparent);
+        border-radius: 2px;
+        animation: bar-sweep 1.4s ease-in-out infinite;
+      }
+      @keyframes bar-sweep {
+        0%   { width: 40%; margin-left: -40%; }
+        100% { width: 40%; margin-left: 100%; }
+      }
+    </style>
+    <script type="module" crossorigin src="/panel/assets/index-DWHLS74t.js"></script>
+    <link rel="modulepreload" crossorigin href="/panel/assets/runtime-core.esm-bundler-D4sk7YH8.js">
+    <link rel="modulepreload" crossorigin href="/panel/assets/runtime-dom.esm-bundler-D84-aTrl.js">
+    <link rel="modulepreload" crossorigin href="/panel/assets/pinia-BAWbGY_2.js">
+    <link rel="modulepreload" crossorigin href="/panel/assets/vue-router-B6cdIv8m.js">
+    <link rel="modulepreload" crossorigin href="/panel/assets/api-Drv4yvpa.js">
+    <link rel="modulepreload" crossorigin href="/panel/assets/auth-D3pOHYMs.js">
+    <link rel="stylesheet" crossorigin href="/panel/assets/index-DRvmF_BK.css">
+  <link rel="manifest" href="/panel/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/panel/registerSW.js"></script></head>
+  <body>
+
+    <!-- ── SPLASH SCREEN ────────────────────────────────────────── -->
+    <div id="splash">
+      <svg class="splash-bike" viewBox="0 0 260 118" xmlns="http://www.w3.org/2000/svg">
+
+        <!-- ── RUEDA TRASERA ─── -->
+        <g class="w-rear">
+          <circle cx="52" cy="88" r="30" fill="none" stroke="#E31837" stroke-width="3.2"/>
+          <!-- radios x4 -->
+          <line x1="52" y1="58" x2="52"  y2="118" stroke="#E31837" stroke-width="1.4" opacity="0.55"/>
+          <line x1="22" y1="88" x2="82"  y2="88"  stroke="#E31837" stroke-width="1.4" opacity="0.55"/>
+          <line x1="31" y1="67" x2="73"  y2="109" stroke="#E31837" stroke-width="1.4" opacity="0.55"/>
+          <line x1="73" y1="67" x2="31"  y2="109" stroke="#E31837" stroke-width="1.4" opacity="0.55"/>
+          <circle cx="52" cy="88" r="4" fill="#E31837"/>
+        </g>
+
+        <!-- ── RUEDA DELANTERA ─── -->
+        <g class="w-front">
+          <circle cx="208" cy="88" r="30" fill="none" stroke="#E31837" stroke-width="3.2"/>
+          <line x1="208" y1="58" x2="208" y2="118" stroke="#E31837" stroke-width="1.4" opacity="0.55"/>
+          <line x1="178" y1="88" x2="238" y2="88"  stroke="#E31837" stroke-width="1.4" opacity="0.55"/>
+          <line x1="187" y1="67" x2="229" y2="109" stroke="#E31837" stroke-width="1.4" opacity="0.55"/>
+          <line x1="229" y1="67" x2="187" y2="109" stroke="#E31837" stroke-width="1.4" opacity="0.55"/>
+          <circle cx="208" cy="88" r="4" fill="#E31837"/>
+        </g>
+
+        <!-- ── CUADRO ─── -->
+        <!-- base: biela → rueda trasera -->
+        <line x1="114" y1="88" x2="52"  y2="88"  stroke="#E31837" stroke-width="3.8"/>
+        <!-- vaina delantera -->
+        <line x1="52"  y1="88" x2="96"  y2="46"  stroke="#E31837" stroke-width="2.8"/>
+        <!-- tubo del sillín -->
+        <line x1="114" y1="88" x2="96"  y2="46"  stroke="#E31837" stroke-width="3.8"/>
+        <!-- tubo superior -->
+        <line x1="96"  y1="46" x2="161" y2="49"  stroke="#E31837" stroke-width="3.8"/>
+        <!-- tubo diagonal -->
+        <line x1="114" y1="88" x2="161" y2="49"  stroke="#E31837" stroke-width="3.8"/>
+        <!-- horquilla -->
+        <line x1="161" y1="49" x2="208" y2="88"  stroke="#E31837" stroke-width="3.8"/>
+        <!-- manillar: tallo -->
+        <line x1="161" y1="45" x2="176" y2="36"  stroke="#E31837" stroke-width="3.8"/>
+        <!-- manillar: barra -->
+        <line x1="171" y1="34" x2="182" y2="34"  stroke="#E31837" stroke-width="3.2" stroke-linecap="round"/>
+        <!-- drops del manillar -->
+        <line x1="182" y1="34" x2="183" y2="41"  stroke="#E31837" stroke-width="2.8" stroke-linecap="round"/>
+        <!-- sillín -->
+        <line x1="88"  y1="42" x2="108" y2="39"  stroke="#E31837" stroke-width="5.5" stroke-linecap="round"/>
+
+        <!-- ── CICLISTA ─── -->
+        <!-- cabeza con casco -->
+        <circle cx="163" cy="17" r="10.5" fill="#E31837"/>
+        <!-- visera del casco -->
+        <path d="M 154 15 Q 163 6 172 15 L 170 18 Q 163 11 156 18 Z" fill="#b51228"/>
+        <!-- torso inclinado -->
+        <path d="M 100 39 C 122 30 148 24 160 24"
+              fill="none" stroke="#E31837" stroke-width="6" stroke-linecap="round"/>
+        <!-- brazo al manillar -->
+        <line x1="160" y1="24" x2="177" y2="34"
+              stroke="#E31837" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- ── PIERNAS PEDALEANDO ─── -->
+        <!-- Giramos un grupo alrededor de la biela (114,88) -->
+        <g class="legs">
+          <!-- pierna 1 (adelante) -->
+          <line x1="114" y1="88" x2="100" y2="68" stroke="#E31837" stroke-width="5.5" stroke-linecap="round"/>
+          <line x1="100" y1="68" x2="106" y2="52" stroke="#E31837" stroke-width="5.5" stroke-linecap="round"/>
+          <!-- pie 1 -->
+          <line x1="103" y1="52" x2="116" y2="50" stroke="#E31837" stroke-width="4.5" stroke-linecap="round"/>
+          <!-- pierna 2 (atrás) -->
+          <line x1="114" y1="88" x2="126" y2="71" stroke="#E31837" stroke-width="5" stroke-linecap="round"/>
+          <line x1="126" y1="71" x2="118" y2="57" stroke="#E31837" stroke-width="5" stroke-linecap="round"/>
+          <!-- pie 2 -->
+          <line x1="112" y1="57" x2="124" y2="59" stroke="#E31837" stroke-width="4" stroke-linecap="round"/>
+        </g>
+
+      </svg>
+
+      <!-- Texto marca -->
+      <p class="splash-brand">
+        <span class="red">BIKE</span><span class="wht">SHOP</span>
+      </p>
+      <p class="splash-sub">cargando</p>
+
+      <!-- Barra de progreso -->
+      <div class="splash-bar">
+        <div class="splash-bar-fill"></div>
+      </div>
+    </div>
+    <!-- ── FIN SPLASH ── -->
+
+    <div id="app"></div>
+  </body>
+</html>

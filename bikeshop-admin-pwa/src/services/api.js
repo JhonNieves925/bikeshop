@@ -44,7 +44,7 @@ api.interceptors.response.use(
         localStorage.removeItem('recordar')
 
         // Redirigir al login correcto
-        window.location.href = isStaff ? '/panel/staff/login' : (import.meta.env.BASE_URL + 'login')
+        window.location.href = isStaff ? '/staff/login' : '/login'
       }
     }
     return Promise.reject(error)
