@@ -1,6 +1,5 @@
 # ── BACKEND ───────────────────────────────────────────────────────
 bikeshop-backend/target/
-bikeshop-backend/uploads/
 bikeshop-backend/src/main/resources/application-local.properties
 bikeshop-backend/src/main/resources/application-*.properties
 !bikeshop-backend/src/main/resources/application.properties
