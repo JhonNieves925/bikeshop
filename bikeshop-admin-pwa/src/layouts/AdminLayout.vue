@@ -1,5 +1,6 @@
 <template>
   <div class="min-h-screen bg-[#0a0a0a] text-white">
+
     <div v-if="sidebarOpen" class="fixed inset-0 bg-black/60 z-20 lg:hidden" @click="sidebarOpen = false" />
 
     <aside
@@ -11,7 +12,7 @@
           <span class="text-[#E31837] text-xl font-black">BIKE</span>
           <span class="text-white text-xl font-black">SHOP</span>
         </span>
-        <button @click="sidebarOpen = false" class="lg:hidden text-[#a0a0a0] hover:text-white">x</button>
+        <button @click="sidebarOpen = false" class="lg:hidden text-[#a0a0a0] hover:text-white">✕</button>
       </div>
       <p class="px-5 pt-2 text-[#a0a0a0] text-xs">{{ auth.isAdmin ? 'Administrador' : 'Empleado' }}</p>
 
@@ -41,7 +42,7 @@
       <div class="p-4 border-t border-[#2a2a2a]">
         <p class="text-xs text-[#a0a0a0] mb-2 truncate">{{ auth.user?.nombre }}</p>
         <button @click="handleLogout" class="text-xs text-[#a0a0a0] hover:text-[#E31837] transition-colors">
-          Cerrar sesion ->
+          Cerrar sesión →
         </button>
       </div>
     </aside>
@@ -54,7 +55,7 @@
           </svg>
         </button>
         <button v-if="canGoBack" @click="router.back()"
-          class="text-[#a0a0a0] hover:text-white transition-colors text-sm"><- Atras</button>
+          class="text-[#a0a0a0] hover:text-white transition-colors text-sm">← Atrás</button>
         <h1 class="text-base md:text-lg font-semibold flex-1 truncate">{{ pageTitle }}</h1>
       </header>
 
@@ -80,39 +81,39 @@ const route = useRoute()
 const sidebarOpen = ref(false)
 
 const navLinks = [
-  { to: '/admin/dashboard', name: 'dashboard', icon: 'Dashboard', label: 'Dashboard' },
-  { to: '/admin/productos', name: 'admin-productos', icon: 'Productos', label: 'Productos' },
-  { to: '/admin/categorias', name: 'admin-categorias', icon: 'Categorias', label: 'Categorias' },
-  { to: '/admin/pedidos', name: 'admin-pedidos', icon: 'Pedidos', label: 'Pedidos' },
-  { to: '/admin/mantenimientos', name: 'admin-mantenimientos', icon: 'Mantenimientos', label: 'Mantenimientos' },
-  { to: '/admin/inventario', name: 'admin-inventario', icon: 'Inventario', label: 'Inventario' },
-  { to: '/admin/facturacion', name: 'admin-facturacion', icon: 'Facturacion', label: 'Facturacion' },
-  { to: '/admin/ventas', name: 'admin-ventas', icon: 'Ventas', label: 'Ventas' },
-  { to: '/admin/novedades', name: 'admin-novedades', icon: 'Novedades', label: 'Novedades' },
-  { to: '/admin/cupones', name: 'admin-cupones', icon: 'Cupones', label: 'Cupones' },
-  { to: '/admin/agenda', name: 'admin-agenda', icon: 'Agenda', label: 'Agenda' }
+  { to: '/admin/dashboard',      name: 'dashboard',            icon: '📊', label: 'Dashboard' },
+  { to: '/admin/productos',      name: 'admin-productos',      icon: '🚲', label: 'Productos' },
+  { to: '/admin/categorias',     name: 'admin-categorias',     icon: '🏷️', label: 'Categorías' },
+  { to: '/admin/pedidos',        name: 'admin-pedidos',        icon: '📦', label: 'Pedidos' },
+  { to: '/admin/mantenimientos', name: 'admin-mantenimientos', icon: '🔧', label: 'Mantenimientos' },
+  { to: '/admin/inventario',     name: 'admin-inventario',     icon: '📋', label: 'Inventario' },
+  { to: '/admin/facturacion',    name: 'admin-facturacion',    icon: '🧾', label: 'Facturación' },
+  { to: '/admin/ventas',         name: 'admin-ventas',         icon: '💰', label: 'Ventas' },
+  { to: '/admin/novedades',      name: 'admin-novedades',      icon: '📰', label: 'Novedades' },
+  { to: '/admin/cupones',        name: 'admin-cupones',        icon: '🏷️', label: 'Cupones' },
+  { to: '/admin/agenda',         name: 'admin-agenda',         icon: '📅', label: 'Agenda' },
 ]
 
 const adminLinks = [
-  { to: '/admin/empleados', name: 'admin-empleados', icon: 'Empleados', label: 'Empleados' },
-  { to: '/admin/reportes', name: 'admin-reportes', icon: 'Reportes', label: 'Reportes' }
+  { to: '/admin/empleados', name: 'admin-empleados', icon: '👥', label: 'Empleados' },
+  { to: '/admin/reportes',  name: 'admin-reportes',  icon: '📈', label: 'Reportes' },
 ]
 
 const pageTitles = {
-  dashboard: 'Dashboard',
+  'dashboard': 'Dashboard',
   'admin-productos': 'Productos',
-  'admin-categorias': 'Categorias',
+  'admin-categorias': 'Categorías',
   'admin-pedidos': 'Pedidos',
   'admin-mantenimientos': 'Mantenimientos',
   'admin-inventario': 'Inventario',
-  'admin-facturacion': 'Facturacion',
+  'admin-facturacion': 'Facturación',
   'admin-ventas': 'Ventas',
   'admin-novedades': 'Novedades',
   'admin-empleados': 'Empleados',
   'admin-empleado-detalle': 'Detalle empleado',
   'admin-reportes': 'Reportes',
   'admin-cupones': 'Cupones de descuento',
-  'admin-agenda': 'Agenda de Mantenimientos'
+  'admin-agenda': 'Agenda de Mantenimientos',
 }
 
 const pageTitle = computed(() => pageTitles[route.name] || 'Panel Admin')

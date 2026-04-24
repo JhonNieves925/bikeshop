@@ -1,17 +1,19 @@
 package com.bikeshop.service;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -25,37 +27,76 @@ public class ImagenService {
     @Value("${app.upload.max-size-mb}")
     private int maxSizeMb;
 
+    @Value("${cloudinary.url:}")
+    private String cloudinaryUrl;
+
+    private Cloudinary cloudinary;
     private Path uploadPath;
+    private boolean useCloudinary;
 
     @PostConstruct
     public void init() throws IOException {
-        this.uploadPath = Paths.get(uploadDir).toAbsolutePath().normalize();
-        Files.createDirectories(this.uploadPath);
+        if (cloudinaryUrl != null && !cloudinaryUrl.isBlank()) {
+            this.cloudinary = new Cloudinary(cloudinaryUrl);
+            this.useCloudinary = true;
+        } else {
+            this.uploadPath = Paths.get(uploadDir).toAbsolutePath().normalize();
+            Files.createDirectories(this.uploadPath);
+            this.useCloudinary = false;
+        }
     }
 
-    /**
-     * Guarda el archivo en disco y retorna la URL pública relativa.
-     * Ej: /uploads/images/abc123.jpg
-     */
     public String guardar(MultipartFile archivo) {
         validar(archivo);
+        return useCloudinary ? guardarEnCloudinary(archivo) : guardarEnDisco(archivo);
+    }
 
+    public void eliminar(String url) {
+        if (url == null || url.isBlank()) return;
+        if (useCloudinary) {
+            eliminarDeCloudinary(url);
+        } else {
+            eliminarDeDisco(url);
+        }
+    }
+
+    private String guardarEnCloudinary(MultipartFile archivo) {
+        try {
+            Map resultado = cloudinary.uploader().upload(archivo.getBytes(), ObjectUtils.asMap(
+                "folder", "bikeshop",
+                "resource_type", "image"
+            ));
+            return (String) resultado.get("secure_url");
+        } catch (IOException e) {
+            throw new IllegalStateException("No se pudo subir la imagen a Cloudinary: " + e.getMessage());
+        }
+    }
+
+    private void eliminarDeCloudinary(String url) {
+        try {
+            // Extrae el public_id desde la URL de Cloudinary
+            // URL format: https://res.cloudinary.com/cloud/image/upload/v123/bikeshop/filename.jpg
+            String publicId = url.replaceAll(".*upload/(?:v\\d+/)?(.+)\\.[a-zA-Z]+$", "$1");
+            cloudinary.uploader().destroy(publicId, ObjectUtils.emptyMap());
+        } catch (IOException e) {
+            // No lanzamos excepción si falla el borrado
+        }
+    }
+
+    private String guardarEnDisco(MultipartFile archivo) {
         String extension = obtenerExtension(archivo.getOriginalFilename());
         String nombreArchivo = UUID.randomUUID() + "." + extension;
-
         try {
             Path destino = uploadPath.resolve(nombreArchivo);
             Files.copy(archivo.getInputStream(), destino, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new IllegalStateException("No se pudo guardar la imagen: " + e.getMessage());
         }
-
         return "/uploads/images/" + nombreArchivo;
     }
 
-    public void eliminar(String url) {
+    private void eliminarDeDisco(String url) {
         if (url == null || url.isBlank()) return;
-        // Extrae el nombre del archivo desde la URL: /uploads/images/abc.jpg -> abc.jpg
         String nombreArchivo = url.substring(url.lastIndexOf('/') + 1);
         try {
             Path archivo = uploadPath.resolve(nombreArchivo);
@@ -69,17 +110,13 @@ public class ImagenService {
         if (archivo == null || archivo.isEmpty()) {
             throw new IllegalArgumentException("El archivo está vacío");
         }
-        // 1. Validar Content-Type declarado
         if (!TIPOS_PERMITIDOS.contains(archivo.getContentType())) {
             throw new IllegalArgumentException("Tipo de archivo no permitido. Use JPG, PNG o WebP");
         }
-        // 2. Validar tamaño
         long maxBytes = (long) maxSizeMb * 1024 * 1024;
         if (archivo.getSize() > maxBytes) {
             throw new IllegalArgumentException("El archivo supera el tamaño máximo de " + maxSizeMb + "MB");
         }
-        // 3. Validar magic bytes reales (no confiar solo en el Content-Type del cliente)
-        // Un atacante podría enviar un .exe renombrado con Content-Type: image/jpeg
         try {
             byte[] header = archivo.getBytes().length >= 12
                     ? java.util.Arrays.copyOf(archivo.getBytes(), 12)
@@ -92,19 +129,10 @@ public class ImagenService {
         }
     }
 
-    /**
-     * Verifica los magic bytes de los formatos permitidos:
-     *  - JPEG: FF D8 FF
-     *  - PNG:  89 50 4E 47 0D 0A 1A 0A
-     *  - WebP: 52 49 46 46 ... 57 45 42 50
-     */
     private boolean esImagenValida(byte[] h) {
         if (h.length < 4) return false;
-        // JPEG
         if ((h[0] & 0xFF) == 0xFF && (h[1] & 0xFF) == 0xD8 && (h[2] & 0xFF) == 0xFF) return true;
-        // PNG
         if ((h[0] & 0xFF) == 0x89 && h[1] == 'P' && h[2] == 'N' && h[3] == 'G') return true;
-        // WebP: RIFF....WEBP
         if (h.length >= 12
                 && h[0] == 'R' && h[1] == 'I' && h[2] == 'F' && h[3] == 'F'
                 && h[8] == 'W' && h[9] == 'E' && h[10] == 'B' && h[11] == 'P') return true;

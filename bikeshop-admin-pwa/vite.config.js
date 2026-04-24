@@ -23,17 +23,21 @@ export default defineConfig({
         scope: '/panel/',
         lang: 'es',
         icons: [
-          { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
-          { src: '/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
+          { src: '/panel/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: '/panel/icons/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
         ],
         shortcuts: [
-          { name: 'Dashboard', url: '/panel/admin/dashboard', icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
-          { name: 'Mantenimientos', url: '/panel/admin/mantenimientos', icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] }
+          { name: 'Dashboard', url: '/panel/admin/dashboard', icons: [{ src: '/panel/icons/icon-192.png', sizes: '192x192' }] },
+          { name: 'Mantenimientos', url: '/panel/admin/mantenimientos', icons: [{ src: '/panel/icons/icon-192.png', sizes: '192x192' }] }
         ]
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         navigateFallbackDenylist: [/^\/api/]
+      },
+      devOptions: {
+        enabled: true,
+        type: 'module'
       }
     })
   ],
