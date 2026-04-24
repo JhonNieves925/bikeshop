@@ -1,51 +1,12 @@
 {
-  "redirects": [
-    {
-      "source": "/",
-      "destination": "/panel/staff/login",
-      "permanent": false
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/:path*",
-      "destination": "https://bikeshop-rxow.onrender.com/api/:path*"
-    },
-    {
-      "source": "/uploads/:path*",
-      "destination": "https://bikeshop-rxow.onrender.com/uploads/:path*"
-    },
-    {
-      "source": "/panel/assets/:path*",
-      "destination": "/assets/:path*"
-    },
-    {
-      "source": "/panel/workbox-:path*",
-      "destination": "/workbox-:path*"
-    },
-    {
-      "source": "/panel/icons/:path*",
-      "destination": "/icons/:path*"
-    },
-    {
-      "source": "/panel/favicon.svg",
-      "destination": "/favicon.svg"
-    },
-    {
-      "source": "/panel/manifest.webmanifest",
-      "destination": "/manifest.webmanifest"
-    },
-    {
-      "source": "/panel/registerSW.js",
-      "destination": "/registerSW.js"
-    },
-    {
-      "source": "/panel/sw.js",
-      "destination": "/sw.js"
-    },
-    {
-      "source": "/panel/:path*",
-      "destination": "/"
-    }
+  "routes": [
+    { "src": "/api/(.*)", "dest": "https://bikeshop-rxow.onrender.com/api/$1" },
+    { "src": "/uploads/(.*)", "dest": "https://bikeshop-rxow.onrender.com/uploads/$1" },
+    { "src": "^/$", "dest": "/panel/staff/login", "status": 302 },
+    { "handle": "filesystem" },
+    { "src": "/panel/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/panel/icons/(.*)", "dest": "/icons/$1" },
+    { "src": "/panel/([^/]+\\.(js|css|png|svg|ico|json|webmanifest|woff2|txt))", "dest": "/$1" },
+    { "src": "/panel/(.*)", "dest": "/" }
   ]
 }
