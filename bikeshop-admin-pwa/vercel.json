@@ -1,0 +1,39 @@
+{
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/panel/staff/login",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/panel/assets/:path*",
+      "destination": "/assets/:path*"
+    },
+    {
+      "source": "/panel/icons/:path*",
+      "destination": "/icons/:path*"
+    },
+    {
+      "source": "/panel/favicon.svg",
+      "destination": "/favicon.svg"
+    },
+    {
+      "source": "/panel/manifest.webmanifest",
+      "destination": "/manifest.webmanifest"
+    },
+    {
+      "source": "/panel/registerSW.js",
+      "destination": "/registerSW.js"
+    },
+    {
+      "source": "/panel/sw.js",
+      "destination": "/sw.js"
+    },
+    {
+      "source": "/panel/:path*",
+      "destination": "/"
+    }
+  ]
+}
