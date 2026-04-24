@@ -8,8 +8,20 @@
   ],
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "https://bikeshop-rxow.onrender.com/api/:path*"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "https://bikeshop-rxow.onrender.com/uploads/:path*"
+    },
+    {
       "source": "/tienda/assets/:path*",
       "destination": "/assets/:path*"
+    },
+    {
+      "source": "/tienda/workbox-:path*",
+      "destination": "/workbox-:path*"
     },
     {
       "source": "/tienda/icons/:path*",

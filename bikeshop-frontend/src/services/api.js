@@ -1,15 +1,14 @@
 import axios from 'axios'
 
-const apiBaseUrl = import.meta.env.VITE_API_URL?.trim() || '/api'
-
 /**
  * Cliente HTTP centralizado.
  *
- * En desarrollo usa el proxy de Vite hacia localhost:8080.
- * En produccion, VITE_API_URL permite apuntar al backend desplegado.
+ * En desarrollo el proxy de Vite (vite.config.js) redirige /api a localhost:8080,
+ * haciendo que las peticiones sean same-origin para el navegador.
+ * En produccion, Vercel reenvia /api al backend.
  */
 const api = axios.create({
-  baseURL: apiBaseUrl,
+  baseURL: '/api',
   timeout: 15000,
   withCredentials: true,
   headers: { 'Content-Type': 'application/json' }
