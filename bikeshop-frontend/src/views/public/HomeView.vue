@@ -88,6 +88,11 @@
       </div>
     </section>
 
+    <!-- AD ZONA 1: Native Banner entre Categorías y Destacados -->
+    <div class="py-6 flex justify-center bg-[#0a0a0a]">
+      <AdNative />
+    </div>
+
     <!-- Productos destacados -->
     <section id="destacados" class="bg-[#141414] py-20">
       <div class="max-w-7xl mx-auto px-6 flex items-end justify-between mb-10">
@@ -182,6 +187,11 @@
         <button @click="scrollCarousel(carouselNov,  1)" class="w-9 h-9 rounded-full border border-[#2a2a2a] hover:border-white hover:bg-white/10 text-white flex items-center justify-center transition-all text-lg">›</button>
       </div>
     </section>
+
+    <!-- AD ZONA 2: Banner 728x90 entre Novedades y Testimonios -->
+    <div class="py-6 flex justify-center overflow-x-hidden bg-[#0a0a0a]">
+      <AdBanner ad-key="4851cc1848895212a03b5b163e92e6e9" :width="728" :height="90" />
+    </div>
 
     <!-- Modal novedad -->
     <Transition name="fade">
@@ -289,6 +299,11 @@
       </div>
     </section>
 
+    <!-- AD ZONA 3: Banner 300x250 entre Testimonios y Sobre Nosotros -->
+    <div class="py-8 flex justify-center bg-[#0a0a0a]">
+      <AdBanner ad-key="4cd9249627e1dfc4a4698cbfc3dd4b5a" :width="300" :height="250" />
+    </div>
+
     <!-- Sobre Nosotros -->
     <section class="relative py-28 overflow-hidden">
       <!-- Imagen de fondo — reemplaza la URL por tu propia foto -->
@@ -364,6 +379,11 @@
       </div>
     </section>
 
+    <!-- AD: Banner 320x50 entre CTA mantenimiento y Ubicación -->
+    <div class="py-4 flex justify-center overflow-x-hidden bg-[#0a0a0a]">
+      <AdBanner ad-key="4e788abdb26c7fe9cdda6a4ebe3cb617" :width="320" :height="50" />
+    </div>
+
     <!-- Ubicación -->
     <section class="bg-[#141414] py-20">
       <div class="max-w-7xl mx-auto px-6">
@@ -428,6 +448,11 @@
         </div>
       </div>
     </section>
+
+    <!-- AD: Banner 160x300 al final de la página -->
+    <div class="py-6 flex justify-center bg-[#141414]">
+      <AdBanner ad-key="7a29bb49ed6a8e4a139e6b372d365428" :width="160" :height="300" />
+    </div>
   </div>
 </template>
 
@@ -436,6 +461,8 @@ import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 import api from '@/services/api'
 import ProductCard from '@/components/common/ProductCard.vue'
+import AdBanner from '@/components/AdBanner.vue'
+import AdNative from '@/components/AdNative.vue'
 
 const categorias = ref([])
 const productos = ref([])

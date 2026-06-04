@@ -209,6 +209,10 @@
               </div>
             </div>
           </div>
+          <!-- AD ZONA 4: Banner 160x600 sticky en sidebar desktop -->
+          <div class="sticky top-6 mt-4 flex justify-center">
+            <AdBanner ad-key="24aa335ced852add42e29b08ca222f4c" :width="160" :height="600" />
+          </div>
         </aside>
 
         <!-- Main content -->
@@ -317,6 +321,11 @@
             </button>
           </div>
 
+          <!-- AD ZONA 5: Banner 468x60 bajo la paginación -->
+          <div class="mt-8 flex justify-center overflow-x-hidden">
+            <AdBanner ad-key="a4ab8d5dd008e02e28bbe67a626b81b7" :width="468" :height="60" />
+          </div>
+
         </main>
       </div>
     </div>
@@ -328,6 +337,7 @@ import { ref, reactive, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import api from '@/services/api'
 import ProductCard from '@/components/common/ProductCard.vue'
+import AdBanner from '@/components/AdBanner.vue'
 
 const route = useRoute()
 const router = useRouter()
